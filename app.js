@@ -1,17 +1,21 @@
+//Express
 const express = require('express');
 const app = express();
-const path = require('path');
-const port = 3030;
-const mainRouter  = require('./routes/main.js')
 
-
+//Rutas Estáticas para linkear archivos del proyecto
 app.use(express.static('public'));
+app.use(express.static('views'));
 
-
-app.set('views', path.join(__dirname,'views'))
-app.set('view engine', 'ejs')
-
-app.use('/', mainRouter)
-
-
+//Servidor
+const port = 3030;
 app.listen(port, () => console.log('Server running in port ' + port))
+
+
+//Requerir Rutas
+const mainRoute  = require('./routes/mainRoute');
+const aboutRoute = require('./routes/aboutRoute')
+
+
+//Iniciar Vistas
+app.use(mainRoute);
+app.use(aboutRoute);
